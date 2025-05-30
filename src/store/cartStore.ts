@@ -1,6 +1,6 @@
 
 import { create } from 'zustand'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/integrations/supabase/client'
 import { Product, CartItem } from '@/lib/supabase'
 
 interface CartState {

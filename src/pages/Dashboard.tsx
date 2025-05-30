@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { supabase, Product } from '@/lib/supabase'
+import { supabase } from '@/integrations/supabase/client'
+import { Product } from '@/lib/supabase'
 import { useAuthStore } from '@/store/authStore'
 import { useCartStore } from '@/store/cartStore'
 import ProductCard from '@/components/ProductCard'
