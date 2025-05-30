@@ -26,12 +26,16 @@ export const useCartStore = create<CartState>((set, get) => ({
         user_id,
         product_id,
         quantity,
-        product:products(*)
+        products(*)
       `)
       .eq('user_id', userId)
     
     if (!error && data) {
-      set({ items: data as CartItem[] })
+      const cartItems = data.map(item => ({
+        ...item,
+        product: Array.isArray(item.products) ? item.products[0] : item.products
+      })) as CartItem[]
+      set({ items: cartItems })
     }
     set({ loading: false })
   },
@@ -54,12 +58,16 @@ export const useCartStore = create<CartState>((set, get) => ({
           user_id,
           product_id,
           quantity,
-          product:products(*)
+          products(*)
         `)
         .single()
 
       if (!error && data) {
-        set((state) => ({ items: [...state.items, data as CartItem] }))
+        const cartItem = {
+          ...data,
+          product: Array.isArray(data.products) ? data.products[0] : data.products
+        } as CartItem
+        set((state) => ({ items: [...state.items, cartItem] }))
       }
     }
   },
